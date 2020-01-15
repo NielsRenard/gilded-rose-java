@@ -1,4 +1,6 @@
 .settings
+.classpath
+.project
 
 # Created by https://www.gitignore.io/api/java,linux,emacs,maven,gradle
 # Edit at https://www.gitignore.io/?templates=java,linux,emacs,maven,gradle
