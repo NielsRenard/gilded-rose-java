@@ -26,6 +26,32 @@ class GildedRoseTest {
     assertEquals(-1, app.items[0].sellIn);
     assertEquals(0, app.items[0].quality);
   }
+
+  @Test
+  void ItemQualityNeverNegative() {
+    Item[] items = new Item[] { new Item("foo", 2, 0) };
+    GildedRose app = new GildedRose(items);
+    app.updateQuality();
+    // sellIn positive -> positive
+    assertEquals(1, app.items[0].sellIn);
+    assertEquals(0, app.items[0].quality);
+
+    app.updateQuality();
+    // sellIn positive -> zero
+    assertEquals(0, app.items[0].sellIn);
+    assertEquals(0, app.items[0].quality);
+
+    app.updateQuality();
+    // sellIn zero -> negative
+    assertEquals(-1, app.items[0].sellIn);
+    assertEquals(0, app.items[0].quality);
+
+    app.updateQuality();
+    // sellIn negative -> negative
+    assertEquals(-2, app.items[0].sellIn);
+    assertEquals(0, app.items[0].quality);
+  }
+
   // ======================================
   // Gilded Rose Requirements Specification
   // ======================================
