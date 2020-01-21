@@ -3,11 +3,11 @@ Having some fun with Java doing the [GildedRose code refactoring kata](https://g
 
 Learned a bunch about java.util.Arrays and bumped my head a couple times forgetting that nearly every copy operation does a shallow copy.
 
-## Requirements
+### Requirements
 
 Find the requirements (and restrictions!) for this kata here: <a href="./GildedRoseRequirements.txt">Gilded Rose Requirements</a>
 
-## Before/After & Tests
+### Before/After & Tests
 
 For the "before" code, click [here](https://gitlab.com/NielsRenard/gilded-rose-java/blob/1af0aaf9cd5c3780de33e55059aff36c934a96d9/src/main/java/com/gildedrose/GildedRose.java)
 
@@ -16,7 +16,7 @@ Refactored code is [here](./src/main/java/com/gildedrose/GildedRose.java)
 For the tests I wrote click [here](./src/test/java/com/gildedrose/GildedRoseTest.java)
 
 
-## How to run
+### How to run
 
 If you have (gnu) Make available, in a terminal, run:  
 
