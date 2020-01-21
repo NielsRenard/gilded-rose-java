@@ -107,6 +107,19 @@ class GildedRoseTest {
     assertEquals(80, itemsOneTick[0].quality);
   }
 
+  @Test
+  void ConjuredDegradeTwiceAsFast() {
+    Item[] items = new Item[] { new Item("Conjured Mana Cake", 0, 6) };
+    Item[] itemsOneTick = GildedRose.updateQuality(items);
+    assertEquals(-1, itemsOneTick[0].sellIn);
+    assertEquals(4, itemsOneTick[0].quality);
+
+    // the item has now expired, and degrades twice as fast
+    Item[] itemsTwoTick = GildedRose.updateQuality(itemsOneTick);
+    assertEquals(-2, itemsTwoTick[0].sellIn);
+    assertEquals(0, itemsTwoTick[0].quality);
+  }
+
   // ======================================
   // Gilded Rose Requirements Specification
   // ======================================

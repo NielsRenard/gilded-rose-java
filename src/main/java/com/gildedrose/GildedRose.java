@@ -9,6 +9,7 @@ final class GildedRose {
   public static final String AGED_BRIE = "Aged Brie";
   public static final String BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
   public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+  public static final String CONJURED = "Conjured Mana Cake";
 
   public GildedRose(Item[] items) {
     this.items = items;
@@ -59,6 +60,7 @@ final class GildedRose {
       switch(item.name) {
         case AGED_BRIE: item = updateBrie(item); break;
         case BACKSTAGE_PASS: item = updateBackstagePasses(item); break;
+        case CONJURED: item = updateConjured(item); break;
         case SULFURAS: break;
         default: item = updateRegularItem(item);
       }
@@ -104,6 +106,16 @@ final class GildedRose {
     return passes;
   }
 
+  // TODO: updatedConjured and updateRegularItem are completely identical
+  // reduce duplication by combining
+  private static Item updateConjured(Item item) {
+    if (item.quality > 0) { // TODO: would be nice to have this 'if' in updateItemQuality
+      item.quality = updateItemQuality(item, -2);
+    }
+    item.sellIn = updateExpiration(item);
+    return item;
+  }
+
   private static Item updateRegularItem(Item item) {
     if (item.quality > 0) { // TODO: would be nice to have this 'if' in updateItemQuality
       item.quality = updateItemQuality(item, -1);
@@ -111,4 +123,5 @@ final class GildedRose {
     item.sellIn = updateExpiration(item);
     return item;
   }
+
 }
