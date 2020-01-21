@@ -26,14 +26,11 @@ final class GildedRose {
   public static Item[] updateQuality(Item[] items) {
     Stack<Item> updatedItems = new Stack<Item>();
     for (Item item : items) {
-      if (item.name.equals(AGED_BRIE)) {
-        item = updateBrie(item);
-      } else if (item.name.equals(BACKSTAGE_PASS)) {
-        item = updateBackstagePasses(item);
-      } else if (item.name.equals(SULFURAS)) {
-        // no op for legendary items
-      } else {
-        item = updateRegularItem(item);
+      switch(item.name) {
+        case AGED_BRIE: item = updateBrie(item); break;
+        case BACKSTAGE_PASS: item = updateBackstagePasses(item); break;
+        case SULFURAS: break;
+        default: item = updateRegularItem(item);
       }
       updatedItems.push(new Item(item.name, item.sellIn, item.quality));
     }
