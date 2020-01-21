@@ -68,6 +68,38 @@ class GildedRoseTest {
   }
 
   @Test
+  void PassesQualityIncreasesFasterNearConcert() {
+    int initialQuality = 0;
+    String backstagePasses = "Backstage passes to a TAFKAL80ETC concert";
+    Item[] items = new Item[] {
+      new Item(backstagePasses, 12, initialQuality),
+      new Item(backstagePasses, 10, initialQuality),
+      new Item(backstagePasses, 5, initialQuality),
+    };
+
+    int regularIncrease = 1;
+    int tenDaysOutIncrease = 2;
+    int fiveDaysOutIncrease = 3;
+
+    GildedRose app = new GildedRose(items);
+    app.updateQuality();
+    assertEquals(initialQuality + regularIncrease, app.items[0].quality);
+    assertEquals(initialQuality + tenDaysOutIncrease, app.items[1].quality);
+    assertEquals(initialQuality + fiveDaysOutIncrease, app.items[2].quality);
+  }
+
+  @Test
+  void PassesWorthlessAfterConcert() {
+    Item[] items = new Item[] {
+      new Item("Backstage passes to a TAFKAL80ETC concert", 0, 50),
+    };
+    GildedRose app = new GildedRose(items);
+    app.updateQuality();
+    assertEquals(0, app.items[0].quality);
+  }
+
+
+  @Test
   void QualityNeverAboveFifty() {
     // TODO: Deal with items initialized with a quality of 51 or higher,
     // as this is currently possible and breaks the requirement.
@@ -122,9 +154,9 @@ class GildedRoseTest {
   // Quality
   // ✓- "Backstage passes", like aged brie, increases in Quality as its SellIn
   // value approaches;
-  // Quality increases by 2 when there are 10 days or less and by 3 when there are
+  // ✓-Quality increases by 2 when there are 10 days or less and by 3 when there are
   // 5 days or less but
-  // Quality drops to 0 after the concert
+  // ✓-Quality drops to 0 after the concert
 
   // We have recently signed a supplier of conjured items. This requires an update
   // to our system:
