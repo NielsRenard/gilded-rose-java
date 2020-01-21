@@ -1,10 +1,14 @@
 package com.gildedrose;
 
-import java.util.Arrays;
+import java.util.Stack;
 
 class GildedRose {
   // However, do not alter the Item class or Items property (...)
   Item[] items;
+
+  public static final String AGED_BRIE = "Aged Brie";
+  public static final String BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
+  public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
 
   public GildedRose(Item[] items) {
     this.items = items;
@@ -14,22 +18,22 @@ class GildedRose {
     System.out.println("Welcome to the Gilded Rose inventory management system");
   }
 
-  public void updateQuality() {
-    // TODO: pass items in as a parameter
-    Item[] updatedItems = Arrays.copyOf(items, items.length);
-
-    for (Item item : updatedItems) {
-      if (item.name.equals("Aged Brie")) {
+  // Takes a list of Items, returns a new list of updated items.
+  public Item[] updateQuality(Item[] items) {
+    Stack<Item> updatedItems = new Stack<Item>();
+    for (Item item : items) {
+      if (item.name.equals(AGED_BRIE)) {
         item = updateBrie(item);
-      } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+      } else if (item.name.equals(BACKSTAGE_PASS)) {
         item = updateBackstagePasses(item);
-      } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
+      } else if (item.name.equals(SULFURAS)) {
         // no op for legendary items
       } else {
         item = updateRegularItem(item);
       }
+      updatedItems.push(new Item(item.name, item.sellIn, item.quality));
     }
-    items = updatedItems;
+    return updatedItems.toArray(new Item[items.length]);
   }
 
   public static int updateItemQuality(Item item, int rate) {

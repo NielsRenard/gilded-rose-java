@@ -12,49 +12,52 @@ class GildedRoseTest {
   void foo() {
     Item[] items = new Item[] { new Item("foo", 0, 0) };
     GildedRose app = new GildedRose(items);
-    app.updateQuality();
+    app.updateQuality(items);
     assertEquals("foo", app.items[0].name);
   }
 
   @Test
   void ExpiredDegradesTwiceAsFast() {
     Item[] items = new Item[] { new Item("foo", 1, 3) };
-    GildedRose app = new GildedRose(items);
-    app.updateQuality();
-    assertEquals(0, app.items[0].sellIn);
-    assertEquals(2, app.items[0].quality);
-    app.updateQuality();
-    assertEquals(-1, app.items[0].sellIn);
-    assertEquals(1, app.items[0].quality);
-    app.updateQuality();
+    GildedRose app = new GildedRose(new Item[]{});
+    Item[] itemsOneTick = app.updateQuality(items);
+    assertEquals(0, itemsOneTick[0].sellIn);
+    assertEquals(2, itemsOneTick[0].quality);
+
+    Item[] itemsTwoTick = app.updateQuality(itemsOneTick);
+    assertEquals(-1, itemsTwoTick[0].sellIn);
+    assertEquals(1, itemsTwoTick[0].quality);
+
+    Item[] itemsThreeTick = app.updateQuality(itemsTwoTick);
     // the item has now expired, and degrades twice as fast
-    assertEquals(-2, app.items[0].sellIn);
-    assertEquals(-1, app.items[0].quality);
+    assertEquals(-2, itemsThreeTick[0].sellIn);
+    assertEquals(-1, itemsThreeTick[0].quality);
   }
 
   @Test
   void ItemQualityNeverNegative() {
     Item[] items = new Item[] { new Item("foo", 2, 0) };
     GildedRose app = new GildedRose(items);
-    app.updateQuality();
+
     // sellIn positive -> positive
-    assertEquals(1, app.items[0].sellIn);
-    assertEquals(0, app.items[0].quality);
+    Item[] itemsOneTick = app.updateQuality(items);
+    assertEquals(1, itemsOneTick[0].sellIn);
+    assertEquals(0, itemsOneTick[0].quality);
 
-    app.updateQuality();
     // sellIn positive -> zero
-    assertEquals(0, app.items[0].sellIn);
-    assertEquals(0, app.items[0].quality);
+    Item[] itemsTwoTick = app.updateQuality(itemsOneTick);
+    assertEquals(0, itemsOneTick[0].sellIn);
+    assertEquals(0, itemsOneTick[0].quality);
 
-    app.updateQuality();
     // sellIn zero -> negative
-    assertEquals(-1, app.items[0].sellIn);
-    assertEquals(0, app.items[0].quality);
+    Item[] itemsThreeTick = app.updateQuality(itemsTwoTick);
+    assertEquals(-1, itemsThreeTick[0].sellIn);
+    assertEquals(0, itemsThreeTick[0].quality);
 
-    app.updateQuality();
     // sellIn negative -> negative
-    assertEquals(-2, app.items[0].sellIn);
-    assertEquals(0, app.items[0].quality);
+    Item[] itemsFourTick = app.updateQuality(itemsThreeTick);
+    assertEquals(-2, itemsFourTick[0].sellIn);
+    assertEquals(0, itemsFourTick[0].quality);
   }
 
   @Test
@@ -66,9 +69,9 @@ class GildedRoseTest {
       new Item("Backstage passes to a TAFKAL80ETC concert", 1, initialQuality),
     };
     GildedRose app = new GildedRose(items);
-    app.updateQuality();
-    assertTrue(app.items[0].quality > initialQuality);
-    assertTrue(app.items[1].quality > initialQuality);
+    Item[] itemsOneTick = app.updateQuality(items);
+    assertTrue(itemsOneTick[0].quality > initialQuality);
+    assertTrue(itemsOneTick[1].quality > initialQuality);
   }
 
   @Test
@@ -86,10 +89,10 @@ class GildedRoseTest {
     int fiveDaysOutIncrease = 3;
 
     GildedRose app = new GildedRose(items);
-    app.updateQuality();
-    assertEquals(initialQuality + regularIncrease, app.items[0].quality);
-    assertEquals(initialQuality + tenDaysOutIncrease, app.items[1].quality);
-    assertEquals(initialQuality + fiveDaysOutIncrease, app.items[2].quality);
+    Item[] itemsOneTick = app.updateQuality(items);
+    assertEquals(initialQuality + regularIncrease, itemsOneTick[0].quality);
+    assertEquals(initialQuality + tenDaysOutIncrease, itemsOneTick[1].quality);
+    assertEquals(initialQuality + fiveDaysOutIncrease, itemsOneTick[2].quality);
   }
 
   @Test
@@ -98,8 +101,8 @@ class GildedRoseTest {
       new Item("Backstage passes to a TAFKAL80ETC concert", 0, 50),
     };
     GildedRose app = new GildedRose(items);
-    app.updateQuality();
-    assertEquals(0, app.items[0].quality);
+    Item[] itemsOneTick = app.updateQuality(items);
+    assertEquals(0, itemsOneTick[0].quality);
   }
 
 
@@ -109,16 +112,16 @@ class GildedRoseTest {
     // as this is currently possible and breaks the requirement.
     Item[] items = new Item[] { new Item("Aged Brie", 1, 50) };
     GildedRose app = new GildedRose(items);
-    app.updateQuality();
-    assertEquals(50, app.items[0].quality);
+    Item[] itemsOneTick = app.updateQuality(items);
+    assertEquals(50, itemsOneTick[0].quality);
   }
 
   @Test
   void SulfurasDoesNotDegrade() {
     Item[] items = new Item[] { new Item("Sulfuras, Hand of Ragnaros", 0, 80) };
     GildedRose app = new GildedRose(items);
-    app.updateQuality();
-    assertEquals(80, app.items[0].quality);
+    Item[] itemsOneTick = app.updateQuality(items);
+    assertEquals(80, itemsOneTick[0].quality);
   }
 
   // ======================================
