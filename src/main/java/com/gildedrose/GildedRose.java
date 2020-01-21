@@ -15,7 +15,7 @@ class GildedRose {
 
   }
 
-  public static int updateQuality(Item item, int rate) {
+  public static int updateItemQuality(Item item, int rate) {
     return (item.quality + rate);
   }
 
@@ -24,21 +24,21 @@ class GildedRose {
   }
 
   public static Item updateBrie(Item brie) {
-    brie.quality = updateQuality(brie, 1);
+    brie.quality = updateItemQuality(brie, 1);
     brie.sellIn = updateExpiration(brie);
     return brie;
   }
 
   public static Item updateBackstagePasses(Item passes) {
     if (passes.sellIn <= 5) {
-      passes.quality = updateQuality(passes, +3);
+      passes.quality = updateItemQuality(passes, +3);
       return passes;
     }
     if (passes.sellIn <= 10) {
-      passes.quality = updateQuality(passes, +2);
+      passes.quality = updateItemQuality(passes, +2);
       return passes;
     } else {
-      passes.quality = updateQuality(passes, +1);
+      passes.quality = updateItemQuality(passes, +1);
       return passes;
     }
   }
