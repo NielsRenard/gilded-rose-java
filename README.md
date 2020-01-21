@@ -38,3 +38,12 @@ You should see something like this:
     Backstage passes to a TAFKAL80ETC concert, 9, 51
     Backstage passes to a TAFKAL80ETC concert, 4, 52
     Conjured Mana Cake, 2, 5
+
+## Before/After & Tests
+
+For the "before" code, click [here](https://gitlab.com/NielsRenard/gilded-rose-java/blob/1af0aaf9cd5c3780de33e55059aff36c934a96d9/src/main/java/com/gildedrose/GildedRose.java)
+
+Refactored code is [here](./src/main/java/com/gildedrose/GildedRose.java)
+
+For the tests I wrote click [here](./src/test/java/com/gildedrose/GildedRoseTest.java)
+
