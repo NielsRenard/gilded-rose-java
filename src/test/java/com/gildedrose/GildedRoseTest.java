@@ -59,6 +59,16 @@ class GildedRoseTest {
     app.updateQuality();
     assertEquals(1, app.items[0].quality);
   }
+
+  @Test
+  void QualityNeverAboveFifty() {
+    // TODO: Deal with items initialized with a quality of 51 or higher,
+    // as this is currently possible and breaks the requirement.
+    Item[] items = new Item[] { new Item("Aged Brie", 1, 50) };
+    GildedRose app = new GildedRose(items);
+    app.updateQuality();
+    assertEquals(50, app.items[0].quality);
+  }
   // ======================================
   // Gilded Rose Requirements Specification
   // ======================================
@@ -87,6 +97,10 @@ class GildedRoseTest {
   // - The Quality of an item is never negative
   // - "Aged Brie" actually increases in Quality the older it gets
   // - The Quality of an item is never more than 50
+  // ✓- Once the sell by date has passed, Quality degrades twice as fast
+  // ✓- The Quality of an item is never negative
+  // ✓- "Aged Brie" actually increases in Quality the older it gets
+  // ✓- The Quality of an item is never more than 50
   // - "Sulfuras", being a legendary item, never has to be sold or decreases in
   // Quality
   // - "Backstage passes", like aged brie, increases in Quality as its SellIn
