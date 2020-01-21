@@ -1,5 +1,5 @@
-# Gilded Rose code refactoring kata
-Having some fun with Java doing the [GildedRose code refactoring kata](https://github.com/emilybache/GildedRose-Refactoring-Kata).
+# GildedRose code refactoring kata
+Had some fun with Java doing the [GildedRose code refactoring kata](https://github.com/emilybache/GildedRose-Refactoring-Kata).
 
 Learned a bunch about java.util.Arrays and bumped my head a couple times forgetting that nearly every copy operation does a shallow copy.
 
