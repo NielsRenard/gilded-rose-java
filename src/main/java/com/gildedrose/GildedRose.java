@@ -59,26 +59,19 @@ final class GildedRose {
   }
 
   public static Item updateBackstagePasses(Item passes) {
-    // TODO: Get rid of updateExpiration duplication
     if (passes.sellIn == 0) {
       passes.quality = 0;
-      passes.sellIn = updateExpiration(passes);
-      return passes;
     }
-    if (passes.sellIn <= 5) {
+    else if (passes.sellIn <= 5) {
       passes.quality = updateItemQuality(passes, +3);
-      passes.sellIn = updateExpiration(passes);
-      return passes;
     }
-    if (passes.sellIn <= 10) {
+    else if (passes.sellIn <= 10) {
       passes.quality = updateItemQuality(passes, +2);
-      passes.sellIn = updateExpiration(passes);
-      return passes;
     } else {
       passes.quality = updateItemQuality(passes, +1);
-      passes.sellIn = updateExpiration(passes);
-      return passes;
     }
+    passes.sellIn = updateExpiration(passes);
+    return passes;
   }
 
   public static Item updateRegularItem(Item item) {
