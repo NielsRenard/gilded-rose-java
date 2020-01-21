@@ -43,6 +43,13 @@ class GildedRose {
     }
   }
 
+  public static Item updateRegularItem(Item item) {
+    if(item.quality > 0){
+      item.quality = updateQuality(item, -1);
+    }
+    return item;
+  }
+
   public void updateQuality() {
     // TODO: pass items in as a parameter
     Item[] updatedItems = Arrays.copyOf(items, items.length);
@@ -51,7 +58,7 @@ class GildedRose {
       if (!item.name.equals("Aged Brie") && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
         if (item.quality > 0) {
           if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            item.quality = item.quality - 1;
+            item = updateRegularItem(item);
           }
         }
       } else {
