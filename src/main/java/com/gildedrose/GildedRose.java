@@ -75,7 +75,7 @@ final class GildedRose {
   }
 
   public static Item updateRegularItem(Item item) {
-    if (item.quality > 0) {
+    if (item.quality > 0) { // TODO: would be nice to have this 'if' in updateItemQuality
       item.quality = updateItemQuality(item, -1);
     }
     item.sellIn = updateExpiration(item);
