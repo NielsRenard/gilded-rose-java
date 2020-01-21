@@ -48,17 +48,17 @@ final class GildedRose {
     return (item.quality + rate);
   }
 
-  public static int updateExpiration(Item item) {
+  private static int updateExpiration(Item item) {
     return item.sellIn - 1;
   }
 
-  public static Item updateBrie(Item brie) {
+  private static Item updateBrie(Item brie) {
     brie.quality = updateItemQuality(brie, 1);
     brie.sellIn = updateExpiration(brie);
     return brie;
   }
 
-  public static Item updateBackstagePasses(Item passes) {
+  private static Item updateBackstagePasses(Item passes) {
     if (passes.sellIn == 0) {
       passes.quality = 0;
     }
@@ -74,7 +74,7 @@ final class GildedRose {
     return passes;
   }
 
-  public static Item updateRegularItem(Item item) {
+  private static Item updateRegularItem(Item item) {
     if (item.quality > 0) { // TODO: would be nice to have this 'if' in updateItemQuality
       item.quality = updateItemQuality(item, -1);
     }
