@@ -2,7 +2,7 @@ package com.gildedrose;
 
 import java.util.Stack;
 
-class GildedRose {
+final class GildedRose {
   // However, do not alter the Item class or Items property (...)
   Item[] items;
 
@@ -14,12 +14,16 @@ class GildedRose {
     this.items = items;
   }
 
+  public void setItems(Item[] items){
+    this.items = items;
+  }
+
   public static void main(String[] args) {
     System.out.println("Welcome to the Gilded Rose inventory management system");
   }
 
   // Takes a list of Items, returns a new list of updated items.
-  public Item[] updateQuality(Item[] items) {
+  public static Item[] updateQuality(Item[] items) {
     Stack<Item> updatedItems = new Stack<Item>();
     for (Item item : items) {
       if (item.name.equals(AGED_BRIE)) {
