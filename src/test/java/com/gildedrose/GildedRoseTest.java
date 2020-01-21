@@ -25,7 +25,11 @@ class GildedRoseTest {
     assertEquals(2, app.items[0].quality);
     app.updateQuality();
     assertEquals(-1, app.items[0].sellIn);
-    assertEquals(0, app.items[0].quality);
+    assertEquals(1, app.items[0].quality);
+    app.updateQuality();
+    // the item has now expired, and degrades twice as fast
+    assertEquals(-2, app.items[0].sellIn);
+    assertEquals(-1, app.items[0].quality);
   }
 
   @Test
