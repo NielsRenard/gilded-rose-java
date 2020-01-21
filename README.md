@@ -22,6 +22,12 @@ If you have (gnu) Make available, in a terminal, run:
 
 `make run`
 
+If you're on a system without Make, run it as such:  
+
+`mvn package`
+
+`java -jar ./target/gilded-rose-kata-0.0.1-SNAPSHOT-jar-with-dependencies.jar`
+
 You should see something like this:  
 
     Welcome to the Gilded Rose inventory management system
