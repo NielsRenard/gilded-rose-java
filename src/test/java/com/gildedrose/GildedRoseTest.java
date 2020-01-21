@@ -76,6 +76,16 @@ class GildedRoseTest {
     app.updateQuality();
     assertEquals(50, app.items[0].quality);
   }
+
+  @Test
+  void SulfurasDoesNotDegrade() {
+    //FIXME: Test fails: requirements state Sulfuras quality never degrades, but it does.
+    Item[] items = new Item[] { new Item("Sulfuras", 0, 1) };
+    GildedRose app = new GildedRose(items);
+    app.updateQuality();
+    assertEquals(1, app.items[0].quality);
+  }
+
   // ======================================
   // Gilded Rose Requirements Specification
   // ======================================
@@ -108,7 +118,7 @@ class GildedRoseTest {
   // ✓- The Quality of an item is never negative
   // ✓- "Aged Brie" actually increases in Quality the older it gets
   // ✓- The Quality of an item is never more than 50
-  // - "Sulfuras", being a legendary item, never has to be sold or decreases in
+  // ❌- "Sulfuras", being a legendary item, never has to be sold or decreases in
   // Quality
   // ✓- "Backstage passes", like aged brie, increases in Quality as its SellIn
   // value approaches;
