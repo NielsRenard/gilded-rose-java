@@ -15,6 +15,17 @@ class GildedRoseTest {
     assertEquals("foo", app.items[0].name);
   }
 
+  @Test
+  void ExpiredDegradesTwiceAsFast() {
+    Item[] items = new Item[] { new Item("foo", 1, 3) };
+    GildedRose app = new GildedRose(items);
+    app.updateQuality();
+    assertEquals(0, app.items[0].sellIn);
+    assertEquals(2, app.items[0].quality);
+    app.updateQuality();
+    assertEquals(-1, app.items[0].sellIn);
+    assertEquals(0, app.items[0].quality);
+  }
   // ======================================
   // Gilded Rose Requirements Specification
   // ======================================
