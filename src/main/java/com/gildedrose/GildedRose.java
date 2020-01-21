@@ -60,9 +60,9 @@ final class GildedRose {
       switch(item.name) {
         case AGED_BRIE: item = updateBrie(item); break;
         case BACKSTAGE_PASS: item = updateBackstagePasses(item); break;
-        case CONJURED: item = updateConjured(item); break;
+        case CONJURED: item = updateRegularOrConjuredItem(item, true); break;
         case SULFURAS: break;
-        default: item = updateRegularItem(item);
+        default: item = updateRegularOrConjuredItem(item, false);
       }
       updatedItems.push(new Item(item.name, item.sellIn, item.quality));
     }
@@ -106,22 +106,15 @@ final class GildedRose {
     return passes;
   }
 
-  // TODO: updatedConjured and updateRegularItem are completely identical
-  // reduce duplication by combining
-  private static Item updateConjured(Item item) {
+  private static Item updateRegularOrConjuredItem(Item item, Boolean conjured) {
     if (item.quality > 0) { // TODO: would be nice to have this 'if' in updateItemQuality
-      item.quality = updateItemQuality(item, -2);
+      if (conjured) {
+        item.quality = updateItemQuality(item, -2);
+      } else {
+        item.quality = updateItemQuality(item, -1);
+      }
     }
     item.sellIn = updateExpiration(item);
     return item;
   }
-
-  private static Item updateRegularItem(Item item) {
-    if (item.quality > 0) { // TODO: would be nice to have this 'if' in updateItemQuality
-      item.quality = updateItemQuality(item, -1);
-    }
-    item.sellIn = updateExpiration(item);
-    return item;
-  }
-
 }
