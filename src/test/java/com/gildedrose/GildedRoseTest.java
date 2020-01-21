@@ -3,6 +3,7 @@ package com.gildedrose;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GildedRoseTest {
 
@@ -53,11 +54,17 @@ class GildedRoseTest {
   }
 
   @Test
-  void BrieQualityIncreasesWithAge() {
-    Item[] items = new Item[] { new Item("Aged Brie", 1, 0) };
+  void BrieAndPassesQualityIncreasesWithAge() {
+    //TODO: Make backstage passes logic generic, i.e. not just for TAFKAL80ETC concerts
+    int initialQuality = 0;
+    Item[] items = new Item[] {
+      new Item("Aged Brie", 1, initialQuality),
+      new Item("Backstage passes to a TAFKAL80ETC concert", 1, initialQuality),
+    };
     GildedRose app = new GildedRose(items);
     app.updateQuality();
-    assertEquals(1, app.items[0].quality);
+    assertTrue(app.items[0].quality > initialQuality);
+    assertTrue(app.items[1].quality > initialQuality);
   }
 
   @Test
@@ -103,7 +110,7 @@ class GildedRoseTest {
   // ✓- The Quality of an item is never more than 50
   // - "Sulfuras", being a legendary item, never has to be sold or decreases in
   // Quality
-  // - "Backstage passes", like aged brie, increases in Quality as its SellIn
+  // ✓- "Backstage passes", like aged brie, increases in Quality as its SellIn
   // value approaches;
   // Quality increases by 2 when there are 10 days or less and by 3 when there are
   // 5 days or less but
