@@ -12,7 +12,24 @@ class GildedRose {
 
   public static void main(String[] args) {
     System.out.println("Welcome to the Gilded Rose inventory management system");
+  }
 
+  public void updateQuality() {
+    // TODO: pass items in as a parameter
+    Item[] updatedItems = Arrays.copyOf(items, items.length);
+
+    for (Item item : updatedItems) {
+      if (item.name.equals("Aged Brie")) {
+        item = updateBrie(item);
+      } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+        item = updateBackstagePasses(item);
+      } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
+        // no op for legendary items
+      } else {
+        item = updateRegularItem(item);
+      }
+    }
+    items = updatedItems;
   }
 
   public static int updateItemQuality(Item item, int rate) {
@@ -20,6 +37,7 @@ class GildedRose {
       return item.quality;
     }
     if (item.sellIn < 0) {
+      // expired items degrade twice as fast
       rate *= 2;
     }
     return (item.quality + rate);
@@ -64,27 +82,5 @@ class GildedRose {
     }
     item.sellIn = updateExpiration(item);
     return item;
-  }
-
-  public void updateQuality() {
-    // TODO: pass items in as a parameter
-    Item[] updatedItems = Arrays.copyOf(items, items.length);
-
-    for (Item item : updatedItems) {
-      if (!item.name.equals("Aged Brie") && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-        if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-          item = updateRegularItem(item);
-        }
-      } else {
-        // quality of brie and passes increases over time
-        if (item.name.equals("Aged Brie")) {
-          item = updateBrie(item);
-        }
-        if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-          item = updateBackstagePasses(item);
-        }
-      }
-    }
-    items = updatedItems;
   }
 }
