@@ -1,6 +1,7 @@
 package com.gildedrose;
 
 class GildedRose {
+  // However, do not alter the Item class or Items property (...)
   Item[] items;
 
   public GildedRose(Item[] items) {
