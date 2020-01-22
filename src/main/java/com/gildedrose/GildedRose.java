@@ -1,5 +1,6 @@
 package com.gildedrose;
 
+import java.util.Scanner;
 import java.util.Stack;
 
 final class GildedRose {
@@ -84,10 +85,7 @@ final class GildedRose {
     return item;
   }
 
-  // TODO: allow user to make days pass with keyboard input.
   public static void main(String[] args) {
-    System.out.println("Welcome to the Gilded Rose inventory management system");
-
     Item[] items = new Item[] {
       new Item("+5 Dexterity Vest", 10, 20),
       new Item("Aged Brie", 2, 0),
@@ -97,26 +95,28 @@ final class GildedRose {
       new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
       new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
       new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-      // this conjured item does not work properly yet
       new Item("Conjured Mana Cake", 3, 6) };
-
     GildedRose app = new GildedRose(items);
 
-    int days = 3;
-    if (args.length > 0) {
-      days = Integer.parseInt(args[0]) + 1;
-    }
-
-    for (int i = 0; i < days; i++) {
-      System.out.println("-------- day " + i + " --------");
-      System.out.println("name, sellIn, quality");
-      for (Item item : items) {
-        System.out.println(item);
+    System.out.println("Welcome to the Gilded Rose inventory management system");
+    try (Scanner scanner = new Scanner(System.in)){
+      int day = 0;
+      while(true) {
+        System.out.println("Press Enter key to move to the next day.");
+        System.out.println("Or q to quit.");
+        String userInput = scanner.nextLine();
+        if (userInput.equals("q")) break;
+        day += 1;
+        for (int i = 0; i < day; i++) {
+          System.out.println("-------- day " + i + " --------");
+          System.out.println("name, sellIn, quality");
+          for (Item item : items) {
+            System.out.println(item);
+          }
+          System.out.println();
+          app.setItems(GildedRose.updateQuality(items));
+        }
       }
-      System.out.println();
-      app.setItems(GildedRose.updateQuality(items));
     }
-
   }
 }
-
