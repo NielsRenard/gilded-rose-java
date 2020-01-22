@@ -66,7 +66,6 @@ class GildedRoseTest {
 
   @Test
   void BrieAndPassesQualityIncreasesWithAge() {
-    //TODO: Make backstage passes logic generic, i.e. not just for TAFKAL80ETC concerts
     int initialQuality = 0;
     Item[] items = new Item[] {
       new Item("Aged Brie", 1, initialQuality),
@@ -109,8 +108,6 @@ class GildedRoseTest {
 
   @Test
   void QualityNeverAboveFifty() {
-    // TODO: Deal with items initialized with a quality of 51 or higher,
-    // as this is currently possible and breaks the requirement.
     Item[] items = new Item[] { new Item("Aged Brie", 1, 50) };
     Item[] itemsOneTick = GildedRose.updateQuality(items);
     assertEquals(50, itemsOneTick[0].quality);
@@ -159,20 +156,9 @@ class GildedRoseTest {
   // We have recently signed a supplier of conjured items. This requires an update
   // to our system:
 
-  // - "Conjured" items degrade in Quality twice as fast as normal items
-
-  // Feel free to make any changes to the UpdateQuality method and add any new
-  // code as long as everything
-  // still works correctly. However, do not alter the Item class or Items property
-  // as those belong to the
-  // goblin in the corner who will insta-rage and one-shot you as he doesn't
-  // believe in shared code
-  // ownership (you can make the UpdateQuality method and Items property static if
-  // you like, we'll cover
-  // for you).
+  // ✓ "Conjured" items degrade in Quality twice as fast as normal items
 
   // Just for clarification, an item can never have its Quality increase above 50,
   // however "Sulfuras" is a
   // legendary item and as such its Quality is 80 and it never alters.
-
 }
