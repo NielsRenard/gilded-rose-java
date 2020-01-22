@@ -7,10 +7,10 @@ final class GildedRose {
   // However, do not alter the Item class or Items property (...)
   Item[] items;
 
-  public static final String AGED_BRIE = "Aged Brie";
-  public static final String BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
-  public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
-  public static final String CONJURED = "Conjured Mana Cake";
+  private static final String AGED_BRIE = "Aged Brie";
+  private static final String BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
+  private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+  private static final String CONJURED = "Conjured Mana Cake";
 
   public GildedRose(Item[] items) {
     this.items = items;
@@ -37,7 +37,9 @@ final class GildedRose {
     return updatedItems.toArray(new Item[items.length]);
   }
 
-  public static int updateItemQuality(Item item, int rate) {
+  // Generic update methods //
+  
+  private static int updateItemQuality(Item item, int rate) {
     if (item.quality + rate >= 50) {
       return 50;
     }
@@ -53,6 +55,8 @@ final class GildedRose {
     return item.sellIn - 1;
   }
 
+  // Item specific update methods
+  
   private static Item updateBrie(Item brie) {
     brie.quality = updateItemQuality(brie, 1);
     return brie;
@@ -75,7 +79,7 @@ final class GildedRose {
 
   private static Item updateRegularOrConjuredItem(Item item, Boolean conjured) {
     if (conjured) {
-      // conjured items degrade twice as fast
+      // conjured items degrade at twice the normal rate
       item.quality = updateItemQuality(item, -2);
     } else {
       item.quality = updateItemQuality(item, -1);
@@ -83,6 +87,8 @@ final class GildedRose {
     return item;
   }
 
+  // An interactive main that prints all the items
+  
   public static void main(String[] args) {
     Item[] items = new Item[] {
       new Item("+5 Dexterity Vest", 10, 20),
