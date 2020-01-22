@@ -39,17 +39,12 @@ final class GildedRose {
   }
 
   //// Generic update methods
-  
+
   private static int updateItemQuality(Item item, int rate) {
-    if (item.quality + rate >= 50) {
-      return 50;
-    }
-    if (item.sellIn < 0) {
-      // expired items degrade twice as fast
-      rate *= 2;
-    }
+    if (item.sellIn < 0) rate *= 2; // expired items degrade twice as fast
     int newQuality = (item.quality + rate);
-    return newQuality > 0 ? newQuality : 0;
+    if (newQuality >= 50) return 50;
+    else return newQuality > 0 ? newQuality : 0;
   }
 
   private static int updateSellIn(Item item) {
@@ -58,7 +53,7 @@ final class GildedRose {
   }
 
   //// Item specific update methods
-  
+
   private static Item updateBrie(Item brie) {
     brie.quality = updateItemQuality(brie, 1);
     return brie;
@@ -90,7 +85,7 @@ final class GildedRose {
   }
 
   //// An interactive main that prints all the items
-  
+
   public static void main(String[] args) {
     Item[] items = new Item[] {
       new Item("+5 Dexterity Vest", 10, 20),
