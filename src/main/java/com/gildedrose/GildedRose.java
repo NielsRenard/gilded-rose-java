@@ -20,7 +20,8 @@ final class GildedRose {
     this.items = items;
   }
 
-  // Takes a list of Items, returns a new list of updated items.
+  // Simulates 1 day passing and returns a new list with updated Items.
+  // (Does not mutate original list)
   public static Item[] updateQuality(Item[] items) {
     Stack<Item> updatedItems = new Stack<Item>();
     for (Item item : items) {
@@ -37,7 +38,7 @@ final class GildedRose {
     return updatedItems.toArray(new Item[items.length]);
   }
 
-  // Generic update methods //
+  //// Generic update methods
   
   private static int updateItemQuality(Item item, int rate) {
     if (item.quality + rate >= 50) {
@@ -55,7 +56,7 @@ final class GildedRose {
     return item.sellIn - 1;
   }
 
-  // Item specific update methods
+  //// Item specific update methods
   
   private static Item updateBrie(Item brie) {
     brie.quality = updateItemQuality(brie, 1);
@@ -87,7 +88,7 @@ final class GildedRose {
     return item;
   }
 
-  // An interactive main that prints all the items
+  //// An interactive main that prints all the items
   
   public static void main(String[] args) {
     Item[] items = new Item[] {
