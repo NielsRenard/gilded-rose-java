@@ -21,31 +21,47 @@ class GildedRoseTest {
     Item[] itemsThreeTick = GildedRose.updateQuality(itemsTwoTick);
     // the item has now expired, and degrades twice as fast
     assertEquals(-2, itemsThreeTick[0].sellIn);
-    assertEquals(-1, itemsThreeTick[0].quality);
+    assertEquals(0, itemsThreeTick[0].quality);
   }
 
   @Test
   void ItemQualityNeverNegative() {
-    Item[] items = new Item[] { new Item("foo", 2, 0) };
+    Item[] items = new Item[] { new Item("foo", 2, 1),
+                                new Item("Conjured Mana Cake", 2, 2)};
     // sellIn positive -> positive
     Item[] itemsOneTick = GildedRose.updateQuality(items);
+
     assertEquals(1, itemsOneTick[0].sellIn);
     assertEquals(0, itemsOneTick[0].quality);
+    // conjured
+    assertEquals(1, itemsOneTick[1].sellIn);
+    assertEquals(0, itemsOneTick[1].quality);
 
     // sellIn positive -> zero
     Item[] itemsTwoTick = GildedRose.updateQuality(itemsOneTick);
-    assertEquals(0, itemsOneTick[0].sellIn);
-    assertEquals(0, itemsOneTick[0].quality);
+    assertEquals(0, itemsTwoTick[0].sellIn);
+    assertEquals(0, itemsTwoTick[0].quality);
+
+    // conjured
+    assertEquals(0, itemsTwoTick[1].sellIn);
+    assertEquals(0, itemsTwoTick[1].quality);
 
     // sellIn zero -> negative
     Item[] itemsThreeTick = GildedRose.updateQuality(itemsTwoTick);
     assertEquals(-1, itemsThreeTick[0].sellIn);
     assertEquals(0, itemsThreeTick[0].quality);
+    // conjured
+    assertEquals(-1, itemsThreeTick[1].sellIn);
+    assertEquals(0, itemsThreeTick[1].quality);
 
     // sellIn negative -> negative
     Item[] itemsFourTick = GildedRose.updateQuality(itemsThreeTick);
     assertEquals(-2, itemsFourTick[0].sellIn);
     assertEquals(0, itemsFourTick[0].quality);
+
+    // conjured
+    assertEquals(-2, itemsFourTick[1].sellIn);
+    assertEquals(0, itemsFourTick[1].quality);
   }
 
   @Test

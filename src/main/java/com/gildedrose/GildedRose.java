@@ -44,7 +44,8 @@ final class GildedRose {
       // expired items degrade twice as fast
       rate *= 2;
     }
-    return (item.quality + rate);
+    int newQuality = (item.quality + rate);
+    return newQuality > 0 ? newQuality : 0;
   }
 
   private static int updateExpiration(Item item) {
