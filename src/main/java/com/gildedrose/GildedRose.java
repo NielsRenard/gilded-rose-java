@@ -3,7 +3,7 @@ package com.gildedrose;
 import java.util.Scanner;
 import java.util.Stack;
 
-final class GildedRose {
+class GildedRose {
   // However, do not alter the Item class or Items property (...)
   Item[] items;
 
@@ -12,18 +12,18 @@ final class GildedRose {
   private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
   private static final String CONJURED = "Conjured Mana Cake";
 
-  public GildedRose(Item[] items) {
+  public GildedRose(final Item[] items) {
     this.items = items;
   }
 
-  public void setItems(Item[] items){
+  public void setItems(final Item[] items){
     this.items = items;
   }
 
   // Simulates 1 day passing and returns a new list with updated Items.
   // (Does not mutate original list)
-  public static Item[] updateQuality(Item[] items) {
-    Stack<Item> updatedItems = new Stack<Item>();
+  public static Item[] updateQuality(final Item[] items) {
+    final Stack<Item> updatedItems = new Stack<Item>();
     for (Item item : items) {
       switch(item.name) {
         case AGED_BRIE: item = updateBrie(item); break;
@@ -40,26 +40,26 @@ final class GildedRose {
 
   //// Generic update methods
 
-  private static int updateItemQuality(Item item, int rate) {
+  private static int updateItemQuality(final Item item, int rate) {
     if (item.sellIn < 0) rate *= 2; // expired items degrade twice as fast
-    int newQuality = (item.quality + rate);
+    final int newQuality = (item.quality + rate);
     if (newQuality >= 50) return 50;
     else return newQuality > 0 ? newQuality : 0;
   }
 
-  private static int updateSellIn(Item item) {
+  private static int updateSellIn(final Item item) {
     if (item.name.equals(SULFURAS) ) return item.sellIn;
     else return item.sellIn - 1;
   }
 
   //// Item specific update methods
 
-  private static Item updateBrie(Item brie) {
+  private static Item updateBrie(final Item brie) {
     brie.quality = updateItemQuality(brie, 1);
     return brie;
   }
 
-  private static Item updateBackstagePasses(Item passes) {
+  private static Item updateBackstagePasses(final Item passes) {
     if (passes.sellIn <= 0) {
       passes.quality = 0;
     }
@@ -74,7 +74,7 @@ final class GildedRose {
     return passes;
   }
 
-  private static Item updateRegularOrConjuredItem(Item item, Boolean conjured) {
+  private static Item updateRegularOrConjuredItem(final Item item, final Boolean conjured) {
     if (conjured) {
       // conjured items degrade at twice the normal rate
       item.quality = updateItemQuality(item, -2);
@@ -86,8 +86,8 @@ final class GildedRose {
 
   //// An interactive main that prints all the items
 
-  public static void main(String[] args) {
-    Item[] items = new Item[] {
+  public static void main(final String[] args) {
+    final Item[] items = new Item[] {
       new Item("+5 Dexterity Vest", 10, 20),
       new Item("Aged Brie", 2, 0),
       new Item("Elixir of the Mongoose", 5, 7),
@@ -97,7 +97,7 @@ final class GildedRose {
       new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
       new Item("Backstage passes to a TAFKAL80ETC concert", 0, 49),
       new Item("Conjured Mana Cake", 3, 6) };
-    GildedRose app = new GildedRose(items);
+    final GildedRose app = new GildedRose(items);
 
     System.out.println("Welcome to the Gilded Rose inventory management system");
     try (Scanner scanner = new Scanner(System.in)){
@@ -105,11 +105,11 @@ final class GildedRose {
       while(true) {
         System.out.println("Press Enter key to move to the next day.");
         System.out.println("Or q to quit.");
-        String userInput = scanner.nextLine();
+        final String userInput = scanner.nextLine();
         if (userInput.equals("q")) break;
         System.out.println("-------- day " + day + " --------");
         System.out.println("name, sellIn, quality");
-        for (Item item : items) {
+        for (final Item item : items) {
           System.out.println(item);
         }
         System.out.println();
