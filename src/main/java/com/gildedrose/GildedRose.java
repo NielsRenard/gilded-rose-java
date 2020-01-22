@@ -75,12 +75,11 @@ final class GildedRose {
   }
 
   private static Item updateRegularOrConjuredItem(Item item, Boolean conjured) {
-    if (item.quality > 0) { // TODO: would be nice to have this 'if' in updateItemQuality
-      if (conjured) {
-        item.quality = updateItemQuality(item, -2);
-      } else {
-        item.quality = updateItemQuality(item, -1);
-      }
+    if (conjured) {
+      // conjured items degrade twice as fast
+      item.quality = updateItemQuality(item, -2);
+    } else {
+      item.quality = updateItemQuality(item, -1);
     }
     item.sellIn = updateExpiration(item);
     return item;
