@@ -9,6 +9,6 @@ build:
 test:
 	@mvn test
 go:
-	@java -jar ./target/gilded-rose-kata-0.3.0-SNAPSHOT-jar-with-dependencies.jar
+	@java -jar ./target/gilded-rose-kata-0.3.1-SNAPSHOT-jar-with-dependencies.jar
 
 run: build go

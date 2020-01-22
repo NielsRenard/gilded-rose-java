@@ -23,10 +23,9 @@ class GildedRose {
   // Simulates 1 day passing and returns a new list with updated Items.
   // (Does not mutate original list)
   public static Item[] updateQuality(final Item[] items) {
-    Item[] updatedItems = Arrays.stream(items)
+    return Arrays.stream(items)
         .map(GildedRose::update)
         .toArray(Item[]::new);
-    return updatedItems;
   }
 
   //// Update helper methods
@@ -122,11 +121,11 @@ class GildedRose {
         if (userInput.equals("q")) break;
         System.out.println("-------- day " + day + " --------");
         System.out.println("name, sellIn, quality");
-        for (final Item item : items) {
+        for (final Item item : app.items) {
           System.out.println(item);
         }
         System.out.println();
-        app.setItems(GildedRose.updateQuality(items));
+        app.setItems(GildedRose.updateQuality(app.items));
         day += 1;
       }
     }

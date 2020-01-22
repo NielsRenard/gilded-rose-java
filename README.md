@@ -30,7 +30,7 @@ If you're on a system without Make, run it as such:
 
 `mvn package`
 
-`java -jar ./target/gilded-rose-kata-0.3.0-SNAPSHOT-jar-with-dependencies.jar`
+`java -jar ./target/gilded-rose-kata-0.3.1-SNAPSHOT-jar-with-dependencies.jar`
 
 You should see something like this:  
     
