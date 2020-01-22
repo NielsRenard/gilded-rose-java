@@ -1,7 +1,7 @@
 package com.gildedrose;
 
+import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Stack;
 
 class GildedRose {
   // However, do not alter the Item class or Items property (...)
@@ -23,65 +23,78 @@ class GildedRose {
   // Simulates 1 day passing and returns a new list with updated Items.
   // (Does not mutate original list)
   public static Item[] updateQuality(final Item[] items) {
-    final Stack<Item> updatedItems = new Stack<Item>();
-    for (Item item : items) {
-      switch(item.name) {
-        case AGED_BRIE: item = updateBrie(item); break;
-        case BACKSTAGE_PASS: item = updateBackstagePasses(item); break;
-        case CONJURED: item = updateRegularOrConjuredItem(item, true); break;
-        case SULFURAS: break;
-        default: item = updateRegularOrConjuredItem(item, false);
-      }
-      item.sellIn = updateSellIn(item);
-      updatedItems.push(new Item(item.name, item.sellIn, item.quality));
-    }
-    return updatedItems.toArray(new Item[items.length]);
+    Item[] updatedItems = Arrays.stream(items)
+        .map(GildedRose::update)
+        .toArray(Item[]::new);
+    return updatedItems;
   }
 
-  //// Generic update methods
+  //// Update helper methods
 
-  private static int updateItemQuality(final Item item, int rate) {
+  private static Item update(Item item) {
+    Item updatedQuality = updateQualityByName(item);
+    Item updatedQualityAndSellIn = updateSellIn(updatedQuality);
+    return updatedQualityAndSellIn;
+  }
+
+  private static Item updateQualityByName(Item item){
+    switch(item.name) {
+      case AGED_BRIE: return updateBrie(item);
+      case BACKSTAGE_PASS: return updateBackstagePasses(item);
+      case CONJURED: return updateRegularOrConjuredItem(item, true);
+      case SULFURAS: return updateSulfuras(item);
+      default: return updateRegularOrConjuredItem(item, false);
+    }
+  }
+
+  private static Item updateItemQuality(final Item item, int rate) {
     if (item.sellIn < 0) rate *= 2; // expired items degrade twice as fast
     final int newQuality = (item.quality + rate);
-    if (newQuality >= 50) return 50;
-    else return newQuality > 0 ? newQuality : 0;
+    final int positive = newQuality > 0 ? newQuality : 0;
+    final int validQuality = positive < 50 ? positive : 50;
+    return new Item(item.name, item.sellIn, validQuality);
+
   }
 
-  private static int updateSellIn(final Item item) {
-    if (item.name.equals(SULFURAS) ) return item.sellIn;
-    else return item.sellIn - 1;
+  private static Item updateSellIn(final Item item) {
+    if (item.name.equals(SULFURAS)) return item; // legendary items do not change
+    Item updatedItem = new Item (item.name, item.sellIn - 1, item.quality);
+    return updatedItem;
   }
 
   //// Item specific update methods
 
   private static Item updateBrie(final Item brie) {
-    brie.quality = updateItemQuality(brie, 1);
-    return brie;
+    Item updatedBrie = updateItemQuality(brie, 1);
+    return updatedBrie;
   }
 
   private static Item updateBackstagePasses(final Item passes) {
     if (passes.sellIn <= 0) {
-      passes.quality = 0;
+      return new Item (passes.name, passes.sellIn, 0);
     }
     else if (passes.sellIn <= 5) {
-      passes.quality = updateItemQuality(passes, +3);
+      return updateItemQuality(passes, +3);
     }
     else if (passes.sellIn <= 10) {
-      passes.quality = updateItemQuality(passes, +2);
-    } else {
-      passes.quality = updateItemQuality(passes, +1);
+      return updateItemQuality(passes, +2);
     }
-    return passes;
+    else {
+      return updateItemQuality(passes, +1);
+    }
+  }
+
+  private static Item updateSulfuras(final Item sulfuras) {
+    return new Item(SULFURAS, sulfuras.sellIn, sulfuras.quality);
   }
 
   private static Item updateRegularOrConjuredItem(final Item item, final Boolean conjured) {
     if (conjured) {
       // conjured items degrade at twice the normal rate
-      item.quality = updateItemQuality(item, -2);
+      return updateItemQuality(item, -2);
     } else {
-      item.quality = updateItemQuality(item, -1);
+      return updateItemQuality(item, -1);
     }
-    return item;
   }
 
   //// An interactive main that prints all the items
