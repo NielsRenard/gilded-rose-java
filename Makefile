@@ -8,7 +8,7 @@ build:
 
 test:
 	@mvn test
-jar-run:
+go:
 	@java -jar ./target/gilded-rose-kata-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
-run: build jar-run
+run: build go

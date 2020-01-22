@@ -11,7 +11,7 @@ Find the requirements (and restrictions!) for this kata here: <a href="./GildedR
 
 For the "before" code, click [here](https://gitlab.com/NielsRenard/gilded-rose-java/blob/1af0aaf9cd5c3780de33e55059aff36c934a96d9/src/main/java/com/gildedrose/GildedRose.java)
 
-Refactored code is [here](./src/main/java/com/gildedrose/GildedRose.java)
+For the refactored code click [here](./src/main/java/com/gildedrose/GildedRose.java)
 
 For the tests I wrote click [here](./src/test/java/com/gildedrose/GildedRoseTest.java)
 
@@ -21,6 +21,10 @@ For the tests I wrote click [here](./src/test/java/com/gildedrose/GildedRoseTest
 If you have (gnu) Make available, in a terminal, run:  
 
 `make run`
+
+Or, to skip the build for subsequent runs  you can use:  
+
+`make go`
 
 If you're on a system without Make, run it as such:  
 
