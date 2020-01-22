@@ -53,7 +53,8 @@ final class GildedRose {
   }
 
   private static int updateSellIn(Item item) {
-    return item.sellIn - 1;
+    if (item.name.equals(SULFURAS) ) return item.sellIn;
+    else return item.sellIn - 1;
   }
 
   //// Item specific update methods
