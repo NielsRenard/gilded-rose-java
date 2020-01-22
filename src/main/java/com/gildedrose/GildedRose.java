@@ -31,6 +31,7 @@ final class GildedRose {
         case SULFURAS: break;
         default: item = updateRegularOrConjuredItem(item, false);
       }
+      item.sellIn = updateSellIn(item);
       updatedItems.push(new Item(item.name, item.sellIn, item.quality));
     }
     return updatedItems.toArray(new Item[items.length]);
@@ -48,13 +49,12 @@ final class GildedRose {
     return newQuality > 0 ? newQuality : 0;
   }
 
-  private static int updateExpiration(Item item) {
+  private static int updateSellIn(Item item) {
     return item.sellIn - 1;
   }
 
   private static Item updateBrie(Item brie) {
     brie.quality = updateItemQuality(brie, 1);
-    brie.sellIn = updateExpiration(brie);
     return brie;
   }
 
@@ -70,7 +70,6 @@ final class GildedRose {
     } else {
       passes.quality = updateItemQuality(passes, +1);
     }
-    passes.sellIn = updateExpiration(passes);
     return passes;
   }
 
@@ -81,7 +80,6 @@ final class GildedRose {
     } else {
       item.quality = updateItemQuality(item, -1);
     }
-    item.sellIn = updateExpiration(item);
     return item;
   }
 
