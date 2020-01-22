@@ -33,8 +33,11 @@ If you're on a system without Make, run it as such:
 `java -jar ./target/gilded-rose-kata-0.0.1-SNAPSHOT-jar-with-dependencies.jar`
 
 You should see something like this:  
-
+    
     Welcome to the Gilded Rose inventory management system
+    Press Enter key to move to the next day.
+    Or q to quit.
+    
     -------- day 0 --------
     name, sellIn, quality
     +5 Dexterity Vest, 10, 20
@@ -44,10 +47,13 @@ You should see something like this:
     Sulfuras, Hand of Ragnaros, -1, 80
     Backstage passes to a TAFKAL80ETC concert, 15, 20
     Backstage passes to a TAFKAL80ETC concert, 10, 49
-    Backstage passes to a TAFKAL80ETC concert, 5, 49
+    Backstage passes to a TAFKAL80ETC concert, 0, 49
     Conjured Mana Cake, 3, 6
-	
-	-------- day 1 --------
+    
+    Press Enter key to move to the next day.
+    Or q to quit.
+    
+    -------- day 1 --------
     name, sellIn, quality
     +5 Dexterity Vest, 9, 19
     Aged Brie, 1, 1
@@ -55,6 +61,9 @@ You should see something like this:
     Sulfuras, Hand of Ragnaros, 0, 80
     Sulfuras, Hand of Ragnaros, -1, 80
     Backstage passes to a TAFKAL80ETC concert, 14, 21
-    Backstage passes to a TAFKAL80ETC concert, 9, 51
-    Backstage passes to a TAFKAL80ETC concert, 4, 52
-    Conjured Mana Cake, 2, 5
+    Backstage passes to a TAFKAL80ETC concert, 9, 50
+    Backstage passes to a TAFKAL80ETC concert, -1, 0
+    Conjured Mana Cake, 2, 4
+    
+    Press Enter key to move to the next day.
+    Or q to quit.
